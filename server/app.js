@@ -1,20 +1,3 @@
-/* 
-
-================== Most Important ==================
-* Issue 1 :
-In uploads folder you need create 3 folder like bellow.
-Folder structure will be like: 
-public -> uploads -> 1. products 2. customize 3. categories
-*** Now This folder will automatically create when we run the server file
-
-* Issue 2:
-For admin signup just go to the auth 
-controller then newUser obj, you will 
-find a role field. role:1 for admin signup & 
-role: 0 or by default it for customer signup.
-go user model and see the role field.
-
-*/
 
 const express = require("express");
 const app = express();
@@ -32,16 +15,13 @@ const brainTreeRouter = require("./routes/braintree");
 const orderRouter = require("./routes/orders");
 const usersRouter = require("./routes/users");
 const customizeRouter = require("./routes/customize");
-// Import Auth middleware for check user login or not~
 const { loginCheck } = require("./middleware/auth");
 const CreateAllFolder = require("./config/uploadFolderCreateScript");
 
-/* Create All Uploads Folder if not exists | For Uploading Images */
 CreateAllFolder();
 
-// Database Connection
 mongoose
-  .connect(process.env.DATABASE, {
+  .connect("mongodb+srv://tanmay_goyal:982991@cluster0.qk7bje9.mongodb.net/?retryWrites=true&w=majority" , {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -70,7 +50,6 @@ app.use("/api", brainTreeRouter);
 app.use("/api/order", orderRouter);
 app.use("/api/customize", customizeRouter);
 
-// Run Server
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log("Server is running on ", PORT);
